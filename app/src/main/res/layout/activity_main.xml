@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="android 5.0 Notification"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/btn_basic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/bg_round_rectangle"
+        android:onClick="showBasic"
+        android:text="基本通知" />
+
+    <Button
+        android:id="@+id/btn_Fold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/bg_round_rectangle"
+
+        android:onClick="showFold"
+        android:text="折叠通知" />
+
+    <Button
+        android:id="@+id/btn_Hang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+
+        android:background="@drawable/bg_round_rectangle"
+        android:onClick="showHang"
+        android:text="悬挂通知" />
+
+    <Button
+        android:id="@+id/btn_Public"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/bg_round_rectangle"
+
+        android:onClick="showPublic"
+        android:text="锁屏可见" />
+
+    <Button
+        android:id="@+id/btn_Private"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/bg_round_rectangle"
+
+        android:onClick="showPrivate"
+        android:text="私有" />
+
+    <Button
+        android:id="@+id/btn_Secret"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+
+        android:background="@drawable/bg_round_rectangle"
+        android:onClick="showSecret"
+        android:text="解锁可见" />
+</LinearLayout>
