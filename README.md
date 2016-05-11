@@ -1,6 +1,8 @@
 # NotificationAnalysis
 解析文档编写中...
 
+demo效果图：
+<img src="https://github.com/Allyns/NotificationAnalysis/blob/master/Untitled.gif"/>
 
 大纲
 
