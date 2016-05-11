@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
         builder.setContentTitle("这里是标题");
         builder.setContentText("这里是内容");
-
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(1, builder.build());
     }
@@ -49,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setContentText("这里是内容");
 
         Notification notification = builder.build();
-
-
+        notification.defaults = Notification.DEFAULT_SOUND;
         notification.bigContentView = new RemoteViews(getPackageName(), R.layout.layout_notification_ex);
 
         NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
