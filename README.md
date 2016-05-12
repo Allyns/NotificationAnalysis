@@ -44,7 +44,7 @@
 
  - [Parcelable](http://www.cnblogs.com/renqingping/archive/2012/10/25/Parcelable.html)
 
- - [Parce](http://blog.csdn.net/mznewfacer/article/details/7847379）
+ - [Parce](http://blog.csdn.net/mznewfacer/article/details/7847379)
 
  - [Android进程管理详解](http://blog.csdn.net/hyggt/article/details/7255043)
 
