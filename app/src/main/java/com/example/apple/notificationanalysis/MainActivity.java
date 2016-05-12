@@ -3,12 +3,13 @@ package com.example.apple.notificationanalysis;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+
+import android.widget.RemoteViews;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RemoteViews;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         builder.setAutoCancel(true);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
         builder.setContentTitle("这里是标题");
+        Notification notification = builder.build();
+        notification.defaults = Notification.DEFAULT_SOUND;
         builder.setContentText("这里是内容");
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(1, builder.build());
@@ -100,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setAutoCancel(true);
+        builder.setProgress(100, 50, true);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
         builder.setContentTitle("这是私有类型的，可以在任何界面看到");
         builder.setContentText("这里是内容");
