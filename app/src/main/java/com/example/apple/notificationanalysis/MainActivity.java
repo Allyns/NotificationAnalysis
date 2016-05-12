@@ -20,24 +20,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    //常规通知
     public void showBasic(View view) {
         Notification.Builder builder = new Notification.Builder(this);
 
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-
+        //图标
         builder.setSmallIcon(R.mipmap.ic_launcher);
+        //通知栏点击
         builder.setContentIntent(pendingIntent);
         builder.setAutoCancel(true);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
-        builder.setContentTitle("这里是标题");
+        builder.setContentTitle("常规通知标题");
         Notification notification = builder.build();
+        //使用默认提示声音
         notification.defaults = Notification.DEFAULT_SOUND;
         builder.setContentText("这里是内容");
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(1, builder.build());
     }
 
+    //折叠通知
     public void showFold(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setContentIntent(pendingIntent);
         builder.setAutoCancel(true);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
-        builder.setContentTitle("这里是标题");
+        builder.setContentTitle("折叠通知标题");
         builder.setContentText("这里是内容");
 
         Notification notification = builder.build();
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         nm.notify(2, notification);
     }
 
+    //悬挂通知
     public void showHang(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
@@ -66,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setAutoCancel(true);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
-        builder.setContentTitle("这里是标题");
+        builder.setContentTitle("悬挂通知知标题");
         builder.setContentText("这里是内容");
         builder.setFullScreenIntent(pendingIntent, true);
 
@@ -76,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //悬挂通知
     public void showPublic(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
@@ -95,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //悬挂通知---private
     public void showPrivate(View view) {
 
         Intent intent = new Intent(this, MainActivity.class);
@@ -105,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setAutoCancel(true);
         builder.setProgress(100, 50, true);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
-        builder.setContentTitle("这是私有类型的，可以在任何界面看到");
+        builder.setContentTitle("悬挂通知private");
         builder.setContentText("这里是内容");
         builder.setFullScreenIntent(pendingIntent, true);
         builder.setVisibility(Notification.VISIBILITY_PRIVATE);
@@ -115,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.notify(5, builder.build());
     }
 
+    //悬挂通知---只能在解锁后看到
     public void showSecret(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
@@ -123,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setAutoCancel(true);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
-        builder.setContentTitle("这是安全类型的，只能在解锁后看到");
+        builder.setContentTitle("悬挂通知");
         builder.setContentText("这里是内容");
         builder.setFullScreenIntent(pendingIntent, true);
         builder.setVisibility(Notification.VISIBILITY_SECRET);
