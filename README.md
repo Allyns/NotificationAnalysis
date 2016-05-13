@@ -104,9 +104,9 @@
  使得经过相同的步骤创建最后得到的对象的展示不一样。
 
 
-···java
+```java
 
-//示例代码
+ 示例代码
 Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_launcher);
         //单击面板就可以让通知将自动取消
@@ -117,12 +117,10 @@ Notification.Builder builder = new Notification.Builder(this);
         builder.setContentText("这里是内容");
         builder.setFullScreenIntent(pendingIntent, true);
 
-
-
-···
-
+```
 
    源代码
+
 
 ```java
 public static class Builder {
