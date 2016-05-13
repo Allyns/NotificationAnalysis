@@ -11,10 +11,10 @@
  - <a href="#principle">实现原理</a>
  - <a href="#SourceCode">1. 源码解析</a>
     - <a href="#showNotificationAnalysis">1.1 显示通知</a>
-        - <a href="#Notification">1.1.1 Notification</a>
-        - <a href="#NotificationManager">1.1.2 NotificationManager</a>
-        - <a href="#Builder">1.1.3 Builder</a>
-        - <a href="#getSystemService">1.1.3 getSystemService</a>
+        - <a href="#Builder">1.1.1 Builder</a>
+        - <a href="#Parcelable">1.1.2 Parcelable</a>
+        - <a href="#Parcel">1.1.3 Parcel</a>
+        - <a href="#NotificationManager">1.1.4 NotificationManager(发送给Notification进程)</a>
     - <a href="#clickNotificationAnalysis">1.2 点击通知栏</a>
         - <a href="#PendingIntent">1.2.1 PendingIntent</a>
         - <a href="#IIntentSender">1.2.2 IIntentSender</a>
@@ -98,47 +98,35 @@
 
 
 ### <div id="showNotificationAnalysis">显示通知</div>
- 说到notification的显示通知，不得不提到一个辛勤的劳动者 - [Buileder](http://www.cnblogs.com/bastard/archive/2011/11/21/2257625.html)，
- 通知到的内容和布局并不是固定的，他是根据设定的值来变换布局的，比如说有两个通知一个是有进度条的一个是没有的.改变了显示内容并不需要我们去改变布局，
- 因为Buileder已经帮我们做好了这些事情，它可以将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。每一步的构造过程中可以引入参数，
- 使得经过相同的步骤创建最后得到的对象的展示不一样。
+
+### <div id="Builder">Builder</div>
+
+ 说到notification的显示通知，不得不提到一个辛勤的劳动者Buileder，他是一种设计模式，通知到的内容和布局并不是固定的，他是根据设定的值来变换布局的，
+ 比如说有两个通知一个是有进度条的一个是没有的.改变了显示内容并不需要我们去改变布局，Buileder已经帮我们做好了这些事情，它可以将一个复杂对象的构建与它的表示分离，
+ 同样的构建过程可以创建不同的表示。每一步的构造过程中可以引入参数，使得经过相同的步骤创建最后得到的对象的展示不一样。
 
 
-```java
-
- 示例代码
-Notification.Builder builder = new Notification.Builder(this);
-        builder.setSmallIcon(R.mipmap.ic_launcher);
-        //单击面板就可以让通知将自动取消
-        builder.setAutoCancel(true);
-        //显示进度条
-        builder.setProgress(100, 50, true);
-        builder.setContentTitle("悬挂通知private");
-        builder.setContentText("这里是内容");
-        builder.setFullScreenIntent(pendingIntent, true);
-
-```
-
-   源代码
-
+   Builder部分源代码
 
 ```java
+
 public static class Builder {
-       private long mWhen; 
-       private Icon mSmallIcon, mLargeIcon; 
-       private int mSmallIconLevel; 
-       private int mNumber; 
+
+       ／***
+       ....
+     ＊/
        private CharSequence mContentTitle; 
        private CharSequence mContentText; 
        private CharSequence mContentInfo; 
        private CharSequence mSubText; 
        private PendingIntent mContentIntent; 
        private RemoteViews mContentView; 
-       private PendingIntent mDeleteIntent; 
-       private PendingIntent mFullScreenIntent; 
        private CharSequence mTickerText; 
        private RemoteViews mTickerView; 
 
+       ／***
+       ....
+     ＊/
             RemoteViews contentView = new BuilderRemoteViews(mContext.getApplicationInfo(), resId);
 
             resetStandardTemplate(contentView);
@@ -157,46 +145,6 @@ public static class Builder {
                 contentView.setImageViewIcon(R.id.icon, mSmallIcon);
                 contentView.setViewVisibility(R.id.icon, View.VISIBLE);
                 processSmallIconAsLarge(mSmallIcon, contentView);
-            }
-            if (mContentTitle != null) {
-                contentView.setTextViewText(R.id.title, processLegacyText(mContentTitle));
-            }
-            if (mContentText != null) {
-                contentView.setTextViewText(R.id.text, processLegacyText(mContentText));
-                showLine3 = true;
-            }
-            if (mContentInfo != null) {
-                contentView.setTextViewText(R.id.info, processLegacyText(mContentInfo));
-                contentView.setViewVisibility(R.id.info, View.VISIBLE);
-                showLine3 = true;
-            } else if (mNumber > 0) {
-                final int tooBig = mContext.getResources().getInteger(
-                        R.integer.status_bar_notification_info_maxnum);
-                if (mNumber > tooBig) {
-                    contentView.setTextViewText(R.id.info, processLegacyText(
-                            mContext.getResources().getString(
-                                    R.string.status_bar_notification_info_overflow)));
-                } else {
-                    NumberFormat f = NumberFormat.getIntegerInstance();
-                    contentView.setTextViewText(R.id.info, processLegacyText(f.format(mNumber)));
-                }
-                contentView.setViewVisibility(R.id.info, View.VISIBLE);
-                showLine3 = true;
-            } else {
-                contentView.setViewVisibility(R.id.info, View.GONE);
-            }
-
-            // Need to show three lines?
-            if (mSubText != null) {
-                contentView.setTextViewText(R.id.text, processLegacyText(mSubText));
-                if (mContentText != null) {
-                    contentView.setTextViewText(R.id.text2, processLegacyText(mContentText));
-                    contentView.setViewVisibility(R.id.text2, View.VISIBLE);
-                    showLine2 = true;
-                    contentTextInLine2 = true;
-                } else {
-                    contentView.setViewVisibility(R.id.text2, View.GONE);
-                }
             } else {
                 contentView.setViewVisibility(R.id.text2, View.GONE);
                 if (hasProgress && (mProgressMax != 0 || mProgressIndeterminate)) {
@@ -217,24 +165,31 @@ public static class Builder {
                 }
             }
 
+    /***
+      .....
+    */
         private int getBaseLayoutResource() {
             return R.layout.notification_template_material_base;
         }
 
-        private int getBigBaseLayoutResource() {
-            return R.layout.notification_template_material_big_base;
-        }
+}
 
-        private int getActionLayoutResource() {
-            return R.layout.notification_material_action;
-        }
+```
 
-        private int getActionTombstoneLayoutResource() {
-            return R.layout.notification_material_action_tombstone;
-        }
+通过看上面的源代码可以发现Builder做了以下几件事：
+1:构建View对象，给View赋值，
+2:把view内容提供给RemoteViews容器中（RemoeViews可以将View对象显示在其他进程中，融合从一个 layout资源文件实现布局）
+
+### <div id="Parcelable">Parcelable</div>
+
+```java
+
+public class Notification implements Parcelable
+{
 
 
 }
+
 ```
 
 ### <div id="summary">总结</div>
