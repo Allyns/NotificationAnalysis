@@ -1,9 +1,4 @@
-# Notification源代码解析
-
-
-解析文档编写中...
-
-
+# Notification使用总结
 ##主要内容
 
  - <a href="#demo">Demo效果图</a>
@@ -173,7 +168,7 @@ public static class Builder {
         }
 
 }
-
+```
 
 ### <div id="summary">总结</div>、
  
