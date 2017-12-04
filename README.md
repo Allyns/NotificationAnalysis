@@ -174,20 +174,12 @@ public static class Builder {
 
 }
 
-```
 
-通过看上面的源代码可以发现Builder做了以下几件事：
-1:构建View对象，给View赋值，
-2:把view内容提供给RemoteViews容器中（RemoeViews可以将View对象显示在其他进程中，融合从一个 layout资源文件实现布局）
-
-```
-
-
-### <div id="summary">总结</div>
-
-
-
+### <div id="summary">总结</div>、
+ 
 ### <div id="hrefs">相关链接</div>
+
+
 
  - [Buileder设计模式](http://www.cnblogs.com/bastard/archive/2011/11/21/2257625.html)
 
