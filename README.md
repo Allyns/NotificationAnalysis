@@ -170,11 +170,8 @@ public static class Builder {
 }
 ```
 
-### <div id="summary">总结</div>、
  
 ### <div id="hrefs">相关链接</div>
-
-
 
  - [Buileder设计模式](http://www.cnblogs.com/bastard/archive/2011/11/21/2257625.html)
 
